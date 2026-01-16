@@ -1,3 +1,3 @@
 <?php
-$clave = password_hash('Alex2025*', PASSWORD_DEFAULT);
+$clave = password_hash('Frank2025*', PASSWORD_DEFAULT);
 echo "<br>***********" . $clave . "**************<br>";

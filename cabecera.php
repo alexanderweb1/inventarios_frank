@@ -34,6 +34,14 @@
           </ul>
         </li>
 
+        <!-- docentes -->
+        <li class="dropdown"><a href="#"><span>Personal</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul>
+            <li><a href="agregar_docente_add.php">Docentes</a></li>
+            <!-- <li><a href="asignar_inventario_add.php">Asignar inventario</a></li> -->
+          </ul>
+        </li>
+
         <li><a href="index.html#contact">Contacto</a></li>
       </ul>
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

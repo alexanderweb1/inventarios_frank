@@ -33,6 +33,9 @@ include_once('config.php');
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <!-- alertify -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- =======================================================
   * Template Name: QuickStart
   * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
@@ -52,9 +55,40 @@ include_once('config.php');
     </div>
   </header>
 
+  <!-- <?php
+        //if (isset($_REQUEST['error'])) {
+        //$error = $_REQUEST["error"];
+
+        ?>
+    <script>
+      alert("<?php //echo $error 
+              ?>");
+      // window.location = "asignar_inventario_add.php";
+    </script>
   <?php
-  require_once('cabecera.php');
-  ?>
+  //}
+  //require_once('cabecera.php');
+  ?> -->
+
+  <?php if (isset($_REQUEST['error'])): ?>
+    <script>
+      const mensaje = "<?php echo htmlspecialchars($_REQUEST['error']); ?>";
+      const esError = mensaje.toLowerCase().includes('error');
+
+      Swal.fire({
+        title: esError ? '¡Atención!' : '¡Logrado!',
+        text: mensaje,
+        icon: esError ? 'error' : 'success',
+        timer: 5000, // Se cierra solo en 3 segundos
+        showConfirmButton: false,
+        timerProgressBar: true
+      });
+
+      window.history.replaceState({}, document.title, window.location.pathname);
+    </script>
+  <?php endif; ?>
+
+  <?php require_once('cabecera.php'); ?>
 
   <main class="main">
 
