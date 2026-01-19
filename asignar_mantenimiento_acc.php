@@ -1,29 +1,22 @@
 <?php
 require_once("db.php");
 
-/* =========================
-   DATOS DEL FORMULARIO
-   ========================= */
+
 $id_articulo = $_POST["id_articulo"];
 $fecha_mantenimiento = $_POST["fecha_mantenimiento"];
 $descripcion_mantenimiento = $_POST["descripcion_mantenimiento"];
 $estado_ingresa = $_POST["estado_ingresa"];
 
-/* =========================
-   DEFINIMOS LA ACCIÓN
-   ========================= */
+
 if (isset($_POST["actualizar"])) {
     $action = "EDITAR";
 } else {
     $action = "INSERTAR";
 }
 
-/* =========================
-   EDITAR REGISTRO
-   ========================= */
 if ($action == "EDITAR") {
 
-    // FALTABA ESTO
+
     $id_mantenimiento = $_POST["id_mantenimiento"];
 
     $sql = "UPDATE mantenimiento 
@@ -48,9 +41,6 @@ if ($action == "EDITAR") {
     }
 } else {
 
-    /* =========================
-       INSERTAR REGISTRO
-       ========================= */
     $sql = "INSERT INTO mantenimiento 
             (id_articulo, fecha_mantenimiento, descripcion_mantenimiento, estado_ingresa) 
             VALUES 
