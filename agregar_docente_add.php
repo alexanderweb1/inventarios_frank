@@ -115,6 +115,10 @@ include_once('config.php');
               <!-- FILA 3 -->
               <div class="row mb-4 bg-light p-3 rounded mx-0 border">
                 <div class="col-md-4">
+                  <label for="hoja_vida" class="form-label fw-bold">Hoja de Vida (PDF)</label>
+                  <input type="file" name="hoja_vida" id="hoja_vida" class="form-control" accept=".pdf">
+                </div>
+                <div class="col-md-4">
                   <label for="usuario" class="form-label fw-bold text-primary">Usuario</label>
                   <input type="text" required name="usuario" id="usuario" class="form-control">
                 </div>
@@ -123,16 +127,13 @@ include_once('config.php');
                   <label for="clave" class="form-label fw-bold text-primary">Clave</label>
                   <input type="password" required name="clave" id="clave" class="form-control">
                 </div>
-
-                <div class="col-md-4">
-                  <label for="hoja_vida" class="form-label fw-bold">Hoja de Vida (PDF)</label>
-                  <input type="file" name="hoja_vida" id="hoja_vida" class="form-control" accept=".pdf">
-                </div>
               </div>
 
               <!-- FILA 4 -->
-              <div class="row mb-4">
-                <div class="col-md-3">
+              <div class="row mb-4 g-3">
+
+                <!-- ESTADO -->
+                <div class="col-md-4">
                   <label for="estado" class="form-label fw-bold">Estado</label>
                   <select name="estado" id="estado" class="form-select">
                     <option value="ACTIVO" selected>ACTIVO</option>
@@ -140,7 +141,30 @@ include_once('config.php');
                   </select>
                 </div>
 
-                <div class="col-md-3">
+                <!-- TOKEN -->
+                <div class="col-md-8">
+                  <label for="token" class="form-label fw-bold">Token</label>
+                  <input type="text" name="token" id="token" class="form-control" maxlength="2">
+                </div>
+
+              </div>
+
+              <div class="row mb-4 g-4">
+
+                <!-- STATUS -->
+                <div class="col-md-4">
+                  <label for="status" class="form-label fw-bold">Status</label>
+                  <input type="text" name="status" id="status" class="form-control" maxlength="2">
+                </div>
+
+                <!-- NÚMERO DE DÍAS -->
+                <div class="col-md-4">
+                  <label for="numDias" class="form-label fw-bold">Número de Días</label>
+                  <input type="text" name="numDias" id="numDias" class="form-control" value="15">
+                </div>
+
+                <!-- COORDINADOR -->
+                <div class="col-md-4">
                   <label for="coordinador" class="form-label fw-bold">¿Es Coordinador?</label>
                   <select name="coordinador" id="coordinador" class="form-select">
                     <option value="NO" selected>NO</option>
@@ -148,21 +172,12 @@ include_once('config.php');
                   </select>
                 </div>
 
-                <div class="col-md-3">
-                  <label for="numDias" class="form-label fw-bold">Número de Días</label>
-                  <input type="text" name="numDias" id="numDias" class="form-control" value="15">
-                </div>
-
-                <div class="col-md-3">
-                  <label for="status" class="form-label fw-bold">Status</label>
-                  <input type="text" name="status" id="status" class="form-control" maxlength="2">
-                </div>
               </div>
+
 
               <!-- TOKEN -->
               <input type="hidden" name="token" value="">
 
-              <hr>
 
               <!-- BOTONES -->
               <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -179,34 +194,80 @@ include_once('config.php');
         </div>
       </div>
     </section><!-- /Hero Section -->
+
     <!-- Services Section -->
     <section id="services" class="services section light-background">
       <div class="container">
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr class="text-center align-middle">
-              <th colspan=4>Lista de marcas</th>
+              <th colspan="13">Lista de Docentes</th>
             </tr>
             <tr>
-              <th>Nro</th>
-              <th>Nombre</th>
-              <th>Descripci&oacute;n</th>
+              <th>ID</th>
+              <th>Cédula</th>
+              <th>Apellidos</th>
+              <th>Nombres</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Tel. Casa</th>
+              <th>Dirección</th>
+              <th>Usuario</th>
+              <th>Estado</th>
+              <th>Coordinador</th>
+              <th>Hoja de Vida</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <?php
-            $mar = $pdo_conn->query("SELECT * FROM marca ");
-            $marca = $mar->fetchAll(PDO::FETCH_OBJ);
-            foreach ($marca as $m) {
+            $doc = $pdo_conn->query("SELECT * FROM docente ORDER BY id_docente");
+            $docentes = $doc->fetchAll(PDO::FETCH_OBJ);
+            foreach ($docentes as $d) {
             ?>
               <tr>
-                <td><?php echo $m->id_marca; ?></td>
-                <td><?php echo $m->nombre; ?></td>
-                <td><?php echo $m->descripcion; ?></td>
+                <td><?php echo $d->id_docente; ?></td>
+                <td><?php echo $d->cedula; ?></td>
+                <td><?php echo $d->apellidos; ?></td>
+                <td><?php echo $d->nombre; ?></td>
+                <td><?php echo $d->correo; ?></td>
+                <td><?php echo $d->telefono; ?></td>
+                <td><?php echo $d->tel_casa; ?></td>
+                <td><?php echo $d->direccion; ?></td>
+                <td><?php echo $d->usuario; ?></td>
                 <td>
-                  <a href="editar_marca.php?id_marca=<?php echo $m->id_marca; ?>" title="Editar" class="btn btn-sm btn-info text-white"><i class="bi bi-pencil-square"></i></a>
-                  <a href="delete_marca.php?id_marca=<?php echo $m->id_marca; ?>" title="Eliminar" class="btn btn-sm btn-danger text-white" onClick="return confirm('Desea eliminar la marca?');"><i class="bi bi-trash"></i></a>
+                  <span class="badge <?php echo ($d->estado == 'ACTIVO') ? 'bg-success' : 'bg-secondary'; ?>">
+                    <?php echo $d->estado; ?>
+                  </span>
+                </td>
+                <td class="text-center">
+                  <?php if ($d->coordinador == 'SI') { ?>
+                    <i class="bi bi-check-circle-fill text-success" title="Es coordinador"></i>
+                  <?php } else { ?>
+                    <i class="bi bi-x-circle text-muted" title="No es coordinador"></i>
+                  <?php } ?>
+                </td>
+                <td class="text-center">
+                  <?php if (!empty($d->hoja_vida)) { ?>
+                    <a href="<?php echo $d->hoja_vida; ?>" target="_blank" class="btn btn-sm btn-outline-primary" title="Ver hoja de vida">
+                      <i class="bi bi-file-pdf"></i>
+                    </a>
+                  <?php } else { ?>
+                    <span class="text-muted">N/A</span>
+                  <?php } ?>
+                </td>
+                <td class="text-center">
+                  <a href="editar_docente.php?id_docente=<?php echo $d->id_docente; ?>"
+                    title="Editar"
+                    class="btn btn-sm btn-info text-white">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <a href="delete_docente.php?id_docente=<?php echo $d->id_docente; ?>"
+                    title="Eliminar"
+                    class="btn btn-sm btn-danger text-white"
+                    onClick="return confirm('¿Desea eliminar este docente?');">
+                    <i class="bi bi-trash"></i>
+                  </a>
                 </td>
               </tr>
             <?php
@@ -214,9 +275,10 @@ include_once('config.php');
             ?>
           </tbody>
         </table>
-
       </div>
     </section><!-- /Services Section -->
+    <!-- /Services Section -->
+
 
 
   </main>
