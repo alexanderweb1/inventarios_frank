@@ -10,7 +10,7 @@ include_once('config.php');
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Sistema de inventarios - Administrar datos de marcas </title>
+  <title>Sistema de inventarios - Registrar docente </title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -65,26 +65,117 @@ include_once('config.php');
       </div>
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
-          <h1 data-aos="fade-up">Administrar <span>marca</span></h1>
-          <p data-aos="fade-up" data-aos-delay="100">Ingrese los datos de la marca<br></p>
+          <h1 data-aos="fade-up">Registrar <span>Docente</span></h1>
+          <p data-aos="fade-up" data-aos-delay="100">Ingrese los datos del docente<br></p>
           <div class="card shadow p-4" data-aos="fade-up" data-aos-delay="200">
-            <form id="form1" name="form1" method="post" action="marca_acc.php" class="d-flex flex-column gap-4">
-              <div class="form-group">
-                <label for="usuario" class="sr-only">Nombre de marca:</label>
-                <input required name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre de la marca">
-              </div>
-              <div class="form-group mb-4">
-                <label for="password" class="sr-only">Descripción:</label><br>
-                <textarea required id="descripcion" name="descripcion" rows="4" cols="50" class="form-control" placeholder="Ingrese la descripción de la marca"></textarea>
-              </div>
-              <!-- <input name="agregar" id="agregar" class="btn btn-block login-btn mb-4" type="submit" value="Agregar"> -->
-              <button name="agregar" id="agregar" class="btn btn-success shadow-sm align-self-center" type="submit" value="Agregar">
-                <i class="bi bi-plus-circle me-2"></i> Agregar
-              </button>
 
+            <form id="form1" name="form1" method="post" action="docente_acc.php" enctype="multipart/form-data">
+
+              <!-- FILA 1 -->
+              <div class="row mb-4">
+                <div class="col-md-4">
+                  <label for="cedula" class="form-label fw-bold">Cédula</label>
+                  <input type="number" required name="cedula" id="cedula" class="form-control" placeholder="1712345678">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="apellidos" class="form-label fw-bold">Apellidos</label>
+                  <input type="text" required name="apellidos" id="apellidos" class="form-control">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="nombre" class="form-label fw-bold">Nombres</label>
+                  <input type="text" required name="nombre" id="nombre" class="form-control">
+                </div>
+              </div>
+
+              <!-- FILA 2 -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <label for="correo" class="form-label fw-bold">Correo</label>
+                  <input type="email" required name="correo" id="correo" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                  <label for="telefono" class="form-label fw-bold">Teléfono</label>
+                  <input type="text" name="telefono" id="telefono" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                  <label for="tel_casa" class="form-label fw-bold">Teléfono Casa</label>
+                  <input type="text" name="tel_casa" id="tel_casa" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                  <label for="direccion" class="form-label fw-bold">Dirección</label>
+                  <input type="text" name="direccion" id="direccion" class="form-control">
+                </div>
+              </div>
+
+              <!-- FILA 3 -->
+              <div class="row mb-4 bg-light p-3 rounded mx-0 border">
+                <div class="col-md-4">
+                  <label for="usuario" class="form-label fw-bold text-primary">Usuario</label>
+                  <input type="text" required name="usuario" id="usuario" class="form-control">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="clave" class="form-label fw-bold text-primary">Clave</label>
+                  <input type="password" required name="clave" id="clave" class="form-control">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="hoja_vida" class="form-label fw-bold">Hoja de Vida (PDF)</label>
+                  <input type="file" name="hoja_vida" id="hoja_vida" class="form-control" accept=".pdf">
+                </div>
+              </div>
+
+              <!-- FILA 4 -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <label for="estado" class="form-label fw-bold">Estado</label>
+                  <select name="estado" id="estado" class="form-select">
+                    <option value="ACTIVO" selected>ACTIVO</option>
+                    <option value="INACTIVO">INACTIVO</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="coordinador" class="form-label fw-bold">¿Es Coordinador?</label>
+                  <select name="coordinador" id="coordinador" class="form-select">
+                    <option value="NO" selected>NO</option>
+                    <option value="SI">SÍ</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="numDias" class="form-label fw-bold">Número de Días</label>
+                  <input type="text" name="numDias" id="numDias" class="form-control" value="15">
+                </div>
+
+                <div class="col-md-3">
+                  <label for="status" class="form-label fw-bold">Status</label>
+                  <input type="text" name="status" id="status" class="form-control" maxlength="2">
+                </div>
+              </div>
+
+              <!-- TOKEN -->
+              <input type="hidden" name="token" value="">
+
+              <hr>
+
+              <!-- BOTONES -->
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <!-- <button type="reset" class="btn btn-secondary px-4">Limpiar</button> -->
+                <button type="submit" class="btn btn-success px-5 shadow">
+                  <i class="bi bi-cloud-arrow-up-fill me-2"></i> Registrar Docente
+                </button>
+              </div>
 
             </form>
+
           </div>
+
         </div>
       </div>
     </section><!-- /Hero Section -->
